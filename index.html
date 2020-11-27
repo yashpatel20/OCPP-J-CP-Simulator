@@ -467,6 +467,10 @@
                   );
                 }
                 $("#TransToStp").val(TransactionId);
+                document.getElementById("statusNotification").value =
+                  "Charging";
+                document.getElementById("status").click();
+                document.getElementById("start_meter_values").click();
                 //logMsg(TransactionId);
               }
               logMsg("Response recieved successfully!");
@@ -822,6 +826,18 @@
         const fieldsToCheck = [
           ["Connector Id", connectorId],
           ["Id Tag", idTag],
+          ["Meter Value - Number Of Messages", meterValueNumberOfMessageField],
+          [
+            "Meter Value - Sample Interval In Seconds",
+            meterValueSampleIntervalField,
+          ],
+          ["Min SoC (percent)", minSocField],
+          ["Max SoC (percent)", maxSocField],
+          ["Min Energy (kWh)", minEnergyField],
+          ["Max Energy (kWh)", maxEnergyField],
+          ["Av Power (W)", avPowerField],
+          ["Av Current (A)", avCurrentField],
+          ["Status Notification", statusNotification],
         ];
         if (fieldsToCheck.map((e) => e[1] !== "").every((e) => e === true)) {
           startTransaction();
