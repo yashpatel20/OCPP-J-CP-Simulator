@@ -470,6 +470,7 @@
                 document.getElementById("statusNotification").value =
                   "Charging";
                 document.getElementById("status").click();
+                clearInterval(meterValueInterval);
                 document.getElementById("start_meter_values").click();
                 //logMsg(TransactionId);
               }
@@ -899,8 +900,16 @@
           const meterValueSampleIntervalInSeconds = Number.parseInt(
             $("#meterValueSampleIntervalInSeconds").val()
           );
-          meterValueIndex = 0;
           clearInterval(meterValueInterval);
+          meterValueIndex = 0;
+          var firstMv = JSON.stringify([
+            2,
+            id,
+            "MeterValues",
+            meterValuesArr[meterValueIndex],
+          ]);
+          _websocket.send(firstMv);
+          meterValueIndex++;
           meterValueInterval = setInterval(() => {
             if (meterValueIndex < meterValuesArr.length) {
               var meterValue = meterValuesArr[meterValueIndex];
